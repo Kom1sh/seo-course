@@ -73,6 +73,7 @@ b,strong{font-weight:600}
 
 /* стикеры и карточки */
 .sticky{border-radius:26px;padding:28px 30px;display:flex;flex-direction:column;gap:12px;min-height:0}
+.sticky.tight{padding:22px 26px;gap:9px}
 .sticky h4{font:500 24px/1.22 var(--fd);letter-spacing:-.01em}
 .sticky p{font:400 21px/1.4 var(--ft);color:var(--charcoal)}
 .sticky .big{font:600 62px/1 var(--fd);letter-spacing:-.03em;margin:4px 0 2px}
@@ -117,6 +118,14 @@ b,strong{font-weight:600}
 .ui{width:42px;height:42px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;flex:none}
 .ui.lg{width:56px;height:56px;stroke-width:1.7}
 .ui.sm{width:30px;height:30px;stroke-width:2.1}
+.ui.xs{width:24px;height:24px;stroke-width:2.2}
+
+/* список «работает / не работает» */
+.plist{display:flex;flex-direction:column;gap:12px;margin-top:2px;list-style:none;min-width:0}
+.plist li{display:grid;grid-template-columns:24px minmax(0,1fr);gap:14px;align-items:start;min-width:0}
+.plist li>div{min-width:0}
+.plist b{display:block;font:500 20px/1.26 var(--fd);letter-spacing:-.005em;margin-bottom:3px}
+.plist i{display:block;font:400 18px/1.32 var(--ft);font-style:normal;color:var(--charcoal)}
 
 /* окно браузера */
 .browser{background:#fff;border:1px solid var(--hair);border-radius:16px;overflow:hidden;box-shadow:rgba(5,0,56,.08) 0 12px 32px -4px;display:flex;flex-direction:column;min-height:0;align-self:center;width:100%}
@@ -227,10 +236,10 @@ b,strong{font-weight:600}
 
 /* источники */
 .src{display:grid;grid-template-columns:1fr 1fr;gap:0 26px;align-content:start}
-.srow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 16px;padding:15px 0;border-bottom:1px solid var(--hair);align-items:baseline}
-.srow .num{width:auto;height:auto;border-radius:0;background:none;color:var(--ink);font:500 20px/1.3 var(--ft);text-align:left}
-.srow .lnk{font:500 16px/1.3 var(--fm);color:var(--blue);white-space:nowrap}
-.srow .whr{grid-column:1/-1;font:400 17px/1.3 var(--ft);color:var(--steel)}
+.srow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:3px 16px;padding:9px 0;border-bottom:1px solid var(--hair);align-items:baseline}
+.srow .num{width:auto;height:auto;border-radius:0;background:none;color:var(--ink);font:500 18px/1.28 var(--ft);text-align:left}
+.srow .lnk{font:500 14px/1.3 var(--fm);color:var(--blue);white-space:nowrap}
+.srow .whr{grid-column:1/-1;font:400 15px/1.28 var(--ft);color:var(--steel)}
 
 /* анимация появления — только там, где порядок имеет смысл */
 .s.live .r{animation:up .5s cubic-bezier(.22,.75,.2,1) both;animation-delay:calc(var(--i,0)*90ms)}
