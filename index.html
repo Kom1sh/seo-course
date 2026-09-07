@@ -24,19 +24,21 @@
   --fd:'Unbounded',system-ui,sans-serif; --ft:'Golos Text',system-ui,-apple-system,sans-serif; --fm:'JetBrains Mono',ui-monospace,Menlo,monospace;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%;background:#EDEEF1;overflow:hidden}
+html,body{height:100%;background:#0F0F12;overflow:hidden}
 body{font-family:var(--ft);color:var(--ink);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 a{color:var(--blue)}
 
 /* сцена 16:9 */
-#stage{position:fixed;inset:0;overflow:hidden;background:#EDEEF1}
-#deck{position:absolute;left:50%;top:50%;width:1600px;height:900px;transform:translate(-50%,-50%) scale(var(--s,1));
-  }
+/* поля вокруг кадра подстраиваются под слайд: у тёмных и жёлтых рамка исчезает,
+   светлый слайд лежит карточкой на глубоком фоне — белых полос по краям нет */
+#stage{position:fixed;inset:0;overflow:hidden;background:var(--edge,#0F0F12);transition:background .3s ease}
+#deck{position:absolute;left:50%;top:50%;width:1600px;height:900px;
+  transform:translate(-50%,-50%) scale(var(--s,1));transform-origin:center center;
+  background:var(--canvas);overflow:hidden;box-shadow:0 24px 70px -18px rgba(0,0,0,.55)}
 /* режим снимка (?shot=1): без масштабирования сцены, кадр ровно 1600×900 — для QA и PDF */
 html.shot,html.shot body{width:1600px;height:900px;background:#fff}
-html.shot #stage{position:static;width:1600px;height:900px}
-html.shot #deck{position:relative;left:auto;top:auto;transform:none;
-  transform-origin:center center;background:var(--canvas);overflow:hidden}
+html.shot #stage{position:static;width:1600px;height:900px;background:#fff}
+html.shot #deck{position:relative;left:auto;top:auto;transform:none;box-shadow:none}
 
 /* слайд */
 .s{position:absolute;inset:0;z-index:3;padding:58px 84px 54px;opacity:0;visibility:hidden;pointer-events:none;
@@ -258,11 +260,13 @@ b,strong{font-weight:600}
 #help{position:fixed;right:14px;bottom:11px;z-index:30;font:500 12px var(--ft);color:#6B6F7A;letter-spacing:.04em;transition:opacity .5s;pointer-events:none}
 #help.hide{opacity:0}
 :focus-visible{outline:2px solid var(--blue);outline-offset:3px}
-@media (prefers-reduced-motion:reduce){#wipe.go,.s.in{animation:none}.s.live .r{animation:none;opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){#wipe.go,.s.in{animation:none}.s.live .r{animation:none;opacity:1;transform:none}#stage{transition:none}}
 
 /* печать */
 @media print{
   @page{size:1600px 900px;margin:0}
+  #stage{background:#fff!important}
+  #deck{box-shadow:none!important}
   html,body{overflow:visible;height:auto;background:#fff}
   #stage{position:static;display:block}
   #deck{position:static;left:auto;top:auto;transform:none;width:1600px;height:auto;overflow:visible}
@@ -280,7 +284,7 @@ b,strong{font-weight:600}
 <script>
 (function(){
   'use strict';
-  var deck=document.getElementById('deck'), slides=[].slice.call(deck.querySelectorAll('.s')), wipe=document.getElementById('wipe'),
+  var deck=document.getElementById('deck'), stage=document.getElementById('stage'), slides=[].slice.call(deck.querySelectorAll('.s')), wipe=document.getElementById('wipe'),
       ov=document.getElementById('ov'), help=document.getElementById('help'), cur=0, total=slides.length,
       reduce=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
   var shot=location.search.indexOf('shot')>=0; if(shot) document.documentElement.classList.add('shot');
@@ -293,6 +297,7 @@ b,strong{font-weight:600}
     var el=slides[cur]; el.classList.add('live');
     if(!reduce){ el.style.setProperty('--dy',(dir<0?-10:10)+'px'); void el.offsetWidth; el.classList.add('in');
       wipe.classList.remove('go'); void wipe.offsetWidth; wipe.classList.add('go'); }
+    stage.style.setProperty('--edge', el.classList.contains('dark') ? '#1C1C1E' : el.classList.contains('yellow') ? '#FFD02F' : '#0F0F12');
     var rs=el.querySelectorAll('.r'), i; for(i=0;i<rs.length;i++) rs[i].style.animation='none'; void el.offsetWidth; for(i=0;i<rs.length;i++) rs[i].style.animation='';
     if(ov.classList.contains('on')) syncOv();
     try{ history.replaceState(null,'','#'+(cur+1)); }catch(e){}
