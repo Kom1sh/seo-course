@@ -328,6 +328,8 @@ b,strong{font-weight:600}
         var st=getComputedStyle(n); if(st.visibility==='hidden'||st.opacity==='0') continue;
         if(n.scrollHeight-n.clientHeight>2 && st.overflow!=='visible' && n.clientHeight>0 && !n.classList.contains('shot'))
           bad.push('обрезан текст: '+nm+' +'+(n.scrollHeight-n.clientHeight)+'px');
+        if(n.scrollWidth-n.clientWidth>2 && st.overflow!=='visible' && n.clientWidth>0)
+          bad.push('обрезан текст по ширине: '+nm+' +'+(n.scrollWidth-n.clientWidth)+'px');
         if(!isSvg&&(b.left<dk.left-1||b.right>dk.right+1||b.top<dk.top-1||b.bottom>dk.bottom+1)) bad.push('за кадром: '+nm);
         var p=n.parentElement;
         if(p&&p!==el){ var ps=getComputedStyle(p), hit=false; for(var j=0;j<PARENTS.length;j++) if(p.classList.contains(PARENTS[j])) hit=true;
