@@ -207,7 +207,7 @@ stack = "".join(f'<div class="tile big{" word" if s in WORD else ""}" style="lef
 S.append(slide(top("Школа Икс, факультатив. Встреча 1 из 5") +
   '<div class="body cover"><div class="row fill" style="gap:40px"><div style="flex:1;display:flex;flex-direction:column;min-width:0">'
   '<h1>Поиск<br>и ИИ-выдача</h1><p class="sub">Как веб-проект находят люди: в Яндексе, в Google и в ответах ChatGPT. Первая встреча из пяти — карта местности на двух живых проектах.</p>'
-  '<div class="who"><div><b>Егор Протасов</b><br><span>SEO-специалист и PM. Автор проектов мапка.рф, techkio.ru, mediachef.app</span></div><div><b>Суббота</b><br><span>90 минут, для 1–3 курсов</span></div></div></div>'
+  '<div class="who"><div><b>Егор Протасов<span class="mono" style="font-weight:500;font-size:19px;color:var(--blue);margin-left:14px">egorprotasov.ru</span></b><br><span>SEO-специалист и PM. Автор проектов мапка.рф, techkio.ru, mediachef.app</span></div><div><b>Суббота</b><br><span>90 минут, для 1–3 курсов</span></div></div></div>'
   f'<div class="stack" style="width:640px;flex:none">{stack}</div></div></div>', "Обложка", "cover"))
 
 # 02 кто говорит
@@ -617,9 +617,10 @@ S.append(slide(top("Источники") + '<h1 class="md">Источники и
 S.append(slide(top("Вопросы") + '<div class="body"><div class="row fill" style="align-items:flex-end;gap:60px"><div style="flex:1.2;display:flex;flex-direction:column;height:100%">'
   '<div class="divt" style="font-size:96px;line-height:.98">Вопросы?</div>'
   '<div style="margin-top:auto;display:flex;flex-direction:column;gap:20px">'
-  '<div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">'
-  '<div class="card"><h4>Telegram</h4><p class="mono" style="font-size:24px;color:#fff">@Kom1sh</p></div>'
-  '<div class="card"><h4>Проекты</h4><p class="mono" style="font-size:21px;line-height:1.45;color:#fff">мапка.рф<br>techkio.ru<br>mediachef.app</p></div></div>'
+  '<div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px">'
+  '<div class="card"><h4>Telegram</h4><p class="mono" style="font-size:21px;color:#fff">@Kom1sh</p></div>'
+  '<div class="card"><h4>Сайт</h4><p class="mono" style="font-size:19px;color:#fff;white-space:nowrap">egorprotasov.ru</p></div>'
+  '<div class="card"><h4>Проекты</h4><p class="mono" style="font-size:19px;line-height:1.5;color:#fff">мапка.рф<br>techkio.ru<br>mediachef.app</p></div></div>'
   '<div class="card"><h4>Эта дека, слайды останутся</h4>'
   '<p class="mono" style="font-size:30px;color:var(--yel);white-space:nowrap">kom1sh.github.io/seo-course</p></div></div></div>'
   '<div class="divlist" style="flex:1;padding-bottom:12px"><span>Домашка: проект, десять запросов, Вебмастер и Search Console</span><span>Встреча 2 — семантика, дата в чате курса</span><span>Вопросы по ходу — в чат или лично</span></div></div></div>', "Вопросы", "dark"))
