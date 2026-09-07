@@ -74,8 +74,9 @@ def top(pill): return f'<div class="top"><span class="pill">{pill}</span><span c
 def slide(inner, title, cls=""): return f'<section class="s {cls}" data-t="{html.escape(title)}">{inner}</section>'
 def sticky(kind, h, p, extra=""): return f'<div class="sticky {kind}">{extra}<h4>{h}</h4><p>{p}</p></div>'
 def stat(n, l, cls=""): return f'<div class="stat {cls}"><div class="n">{n}</div><div class="l">{l}</div></div>'
-def browser(url, img, h=None):
-    st = f' style="height:{h}px"' if h else ""
+def browser(url, img, w=None):
+    """Окно браузера. Высота выводится из пропорций снимка, поэтому страница видна целиком."""
+    st = f' style="max-width:{w}px"' if w else ""
     return f'<div class="browser"{st}><div class="bar"><i></i><i></i><i></i><span class="url">{url}</span></div><div class="shot"><img src="assets/{img}" alt=""></div></div>'
 def arrow(): return '<div class="arr"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>'
 def step(n, h, p, kind="", icon=None, i=0):
@@ -212,10 +213,10 @@ S.append(slide(top("Школа Икс, факультатив. Встреча 1 
 # 02 кто говорит
 S.append(slide(top("Кто говорит") + '<h1>Весь материал сегодня — из двух моих проектов и трёх систем аналитики</h1>'
   '<div class="body"><div class="row fill" style="gap:28px">'
-  f'<div style="flex:1;display:grid;grid-template-rows:repeat(3,minmax(0,1fr));gap:14px">{stat(fmt(tk_search+mp_search), "визитов из поиска за 30 дней на двух проектах вместе", "sm")}'
+  f'<div style="width:420px;flex:none;display:grid;grid-template-rows:repeat(3,minmax(0,1fr));gap:14px">{stat(fmt(tk_search+mp_search), "визитов из поиска за 30 дней на двух проектах вместе", "sm")}'
   f'{stat(f"{tk_ya_share}%", "поискового трафика приносит Яндекс, остальное Google", "sm")}'
   f'{stat(fmt(TK["yandex_summary"]["in_search"]+MP["yandex_summary"]["in_search"]), "страниц двух сайтов знает поиск Яндекса", "sm")}</div>'
-  f'<div style="flex:1.7;display:grid;grid-template-columns:1fr 1fr;gap:20px">{browser("techkio.ru", "techkio.webp", 380)}{browser("мапка.рф", "mapka.webp", 380)}</div></div>'
+  f'<div style="flex:1;display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:center">{browser("techkio.ru", "techkio.webp")}{browser("мапка.рф", "mapka.webp")}</div></div>'
   '<p class="foot">Все цифры в деке — Яндекс Метрика, Яндекс Вебмастер и Google Search Console на 6 сентября 2026, если не указан другой источник.</p></div>', "Кто говорит"))
 
 # 03 зачем
@@ -230,14 +231,14 @@ S.append(slide(top("Зачем это вам") + '<h1>Трафик — это л
 S.append(slide(top("Живой пример") + f'<h1>Сайту techkio.ru восемь недель. Поиск приносит {fmt(tk_search)} визитов в месяц</h1>'
   '<div class="body"><div class="row fill" style="gap:32px">'
   f'<div class="chart" style="flex:1.1">{line_chart(tk_weeks, w=800, h=470)}<div class="leg"><span><i style="background:#0FBCB0"></i>визиты из поисковых систем в неделю</span></div></div>'
-  f'<div style="flex:1">{browser("techkio.ru", "techkio.webp", 470)}</div></div>'
+  f'<div style="flex:1">{browser("techkio.ru", "techkio.webp")}</div></div>'
   '<p class="foot">Яндекс Метрика, недели с 13 июля по 6 сентября 2026. Сайт открыт 15 июля.</p></div>', "techkio.ru за восемь недель"))
 
 # 05 мапка крюк
 S.append(slide(top("Живой пример") + f'<h1>Мапка.рф полгода стояла на 10–30 визитах в неделю. В конце августа — {fmt(mp_weeks[-1][1])}</h1>'
   '<div class="body"><div class="row fill" style="gap:32px">'
   f'<div class="chart" style="flex:1.1">{line_chart(mp_weeks, w=800, h=470, every=5, vline=(mp_aug_idx, "2 августа"))}<div class="leg"><span><i style="background:#0FBCB0"></i>визиты из поисковых систем в неделю</span></div></div>'
-  f'<div style="flex:1">{browser("мапка.рф", "mapka.webp", 470)}</div></div>'
+  f'<div style="flex:1">{browser("мапка.рф", "mapka.webp")}</div></div>'
   '<p class="foot">Яндекс Метрика, недели 2026 года. Что случилось 2 августа — в четвёртом блоке.</p></div>', "мапка.рф до и после августа"))
 
 # 06 серия
@@ -456,7 +457,7 @@ S.append(divider("04", "Два кейса", "Мапка.рф и techkio.ru: чт
 # 24 мапка интро
 S.append(slide(top("Кейс 1. Мапка.рф") + f'<h1>Каталог детских секций Ростова: 205 клубов, {MP["yandex_summary"]["sitemap_urls"]} адресов в карте сайта</h1>'
   '<div class="body"><div class="row fill" style="gap:32px">'
-  f'<div style="flex:1.25">{browser("мапка.рф/sektsii/futbol", "mapka_sekcii.webp", 430)}</div>'
+  f'<div style="flex:1.25">{browser("мапка.рф/sektsii/futbol", "mapka_sekcii.webp")}</div>'
   '<div style="flex:1;display:flex;flex-direction:column;gap:14px">'
   + sticky("orange", "Страницы под спрос из данных", "8 направлений, 7 районов, 2 возраста: «плавание», «в Левенцовке», «для дошкольников». Каждая посадочная — своя карта и свой текст.")
   + sticky("grey", "Порог качества", "Посадочная выходит в индекс, если на ней три клуба и больше. Тонкие страницы получают noindex, чтобы не тянуть сайт вниз.")
@@ -492,7 +493,7 @@ S.append(slide(top("Кейс 1. Урок") + '<h1>Агрегатор ловит 
 geo = TK["metrika_geo30"][:3]
 S.append(slide(top("Кейс 2. techkio.ru") + f'<h1>Сайт Minecraft-сервера. Восемь недель, {TK["yandex_summary"]["in_search"]} страниц в поиске, {fmt(tk_search)} визитов из поиска за месяц</h1>'
   '<div class="body"><div class="row fill" style="gap:32px">'
-  f'<div style="flex:1.25">{browser("techkio.ru", "techkio.webp", 430)}</div>'
+  f'<div style="flex:1.25">{browser("techkio.ru", "techkio.webp")}</div>'
   '<div style="flex:1;display:grid;grid-template-rows:repeat(3,minmax(0,1fr));gap:12px">'
   + stat(f'{fmt(tk_eng["Yandex"])} <small>и</small> {fmt(tk_eng["Google"])}', "визитов из Яндекса и из Google за 30 дней", "sm")
   + stat(f"{tk_pc}%", "визитов с компьютера: игроки ищут гайды прямо во время игры", "sm")

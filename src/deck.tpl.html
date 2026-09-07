@@ -117,12 +117,12 @@ b,strong{font-weight:600}
 .ui.sm{width:30px;height:30px;stroke-width:2.1}
 
 /* окно браузера */
-.browser{background:#fff;border:1px solid var(--hair);border-radius:16px;overflow:hidden;box-shadow:rgba(5,0,56,.08) 0 12px 32px -4px;display:flex;flex-direction:column;min-height:0}
+.browser{background:#fff;border:1px solid var(--hair);border-radius:16px;overflow:hidden;box-shadow:rgba(5,0,56,.08) 0 12px 32px -4px;display:flex;flex-direction:column;min-height:0;align-self:center;width:100%}
 .browser .bar{height:40px;flex:none;background:var(--surface);border-bottom:1px solid var(--hair);display:flex;align-items:center;gap:8px;padding:0 14px}
 .browser .bar i{width:11px;height:11px;border-radius:50%;background:var(--hair2);flex:none}
 .browser .url{margin-left:10px;flex:1;height:25px;background:#fff;border:1px solid var(--hair);border-radius:8px;font:500 14px/23px var(--fm);color:var(--slate);padding:0 10px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
-.browser .shot{flex:1;min-height:0;overflow:hidden;background:#fff}
-.browser .shot img{display:block;width:100%;height:100%;object-fit:cover;object-position:top}
+.browser .shot{flex:none;aspect-ratio:1200/750;overflow:hidden;background:#fff}
+.browser .shot img{display:block;width:100%;height:100%;object-fit:contain;object-position:center}
 
 /* пайплайн шагов */
 .pipe{display:flex;gap:16px;align-items:stretch;min-height:0}
