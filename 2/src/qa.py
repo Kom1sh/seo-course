@@ -12,6 +12,14 @@
 """
 import json, subprocess, sys, os, re, pathlib, http.server, socketserver, threading, functools, time
 
+# Pillow стоит только в системном питоне: если запустили другим — перезапускаемся под ним
+try:
+    from PIL import Image  # noqa: F401
+except ModuleNotFoundError:
+    if sys.executable != "/usr/bin/python3" and os.path.exists("/usr/bin/python3"):
+        os.execv("/usr/bin/python3", ["/usr/bin/python3", *sys.argv])
+    raise
+
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 OUT = (pathlib.Path(os.environ["CLAUDE_JOB_DIR"]) / "tmp" if os.environ.get("CLAUDE_JOB_DIR") else pathlib.Path("/tmp")) / ("deck-qa-" + ROOT.name)

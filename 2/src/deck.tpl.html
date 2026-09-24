@@ -325,6 +325,38 @@ b,strong{font-weight:600}
 .vote .sticky{flex-direction:row;align-items:flex-start;gap:18px}
 .vote .sticky>div{min-width:0}
 
+/* ═══ разбор посадочной, сироты, блог ═══ */
+.shotmk{position:relative;min-width:0}
+.shotmk .mk{position:absolute;transform:translate(-50%,-50%);width:40px;height:40px;border-radius:50%;background:var(--ink);color:#fff;
+  font:600 18px/40px var(--fd);text-align:center;box-shadow:0 0 0 4px #fff;z-index:2}
+.ann{display:flex;flex-direction:column;gap:14px;min-width:0}
+.ann .it{display:grid;grid-template-columns:36px minmax(0,1fr);gap:14px;align-items:start}
+.ann .it .m{width:36px;height:36px;border-radius:50%;background:var(--ink);color:#fff;font:600 16px/36px var(--fd);text-align:center}
+.ann .it h5{font:500 20px/1.25 var(--fd);margin-bottom:5px}
+.ann .it p{font:400 17px/1.4 var(--ft);color:var(--charcoal)}
+.ann .it p em{font-style:normal;font-weight:600}
+.ann .it p em.hu{color:var(--moss)} .ann .it p em.se{color:var(--lav-d)}
+.qrbox{background:#fff;border:1px solid var(--hair);border-radius:20px;padding:16px 16px 14px;display:flex;flex-direction:column;align-items:center;gap:10px;
+  box-shadow:rgba(5,0,56,.08) 0 12px 32px -4px}
+.qrbox img{width:290px;height:290px;display:block}
+.qrbox p{font:500 17px/1.35 var(--ft);color:var(--ink);text-align:center;max-width:290px}
+.outl{display:flex;flex-direction:column;min-width:0}
+.outl .o{display:grid;grid-template-columns:minmax(0,1fr) 250px;gap:14px;align-items:baseline;border-bottom:1px solid var(--hair);padding:6px 0}
+.outl .o span{font:400 17px/1.3 var(--ft);color:var(--ink);min-width:0}
+.outl .o span b{font:600 13px/1 var(--fm);color:var(--steel);margin-right:8px}
+.outl .o.l3 span{padding-left:26px;color:var(--charcoal)}
+.outl .o em{font:500 16px/1.25 var(--ft);font-style:normal;color:var(--lav-d);text-align:right}
+.lst3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px 24px}
+.lst3 div{display:flex;gap:12px;align-items:baseline;font:400 18px/1.35 var(--ft);color:var(--charcoal);min-width:0}
+.lst3 div b{font:600 16px/1 var(--fd);color:var(--ink);flex:none;width:18px}
+.orph svg{width:100%;height:auto;display:block}
+.pipe.six .step{padding:22px 18px}
+.pipe.six .step h4{font-size:20px}
+.pipe.six .step p{font-size:18px}
+.cols h5{font:500 21px/1.25 var(--fd);margin-bottom:6px}
+.cols p{font:400 18px/1.4 var(--ft);color:var(--charcoal)}
+.tbl.dense>div{padding-top:10px;padding-bottom:10px}
+
 /* анимация появления — только там, где порядок имеет смысл */
 .s.live .r{animation:up .5s cubic-bezier(.22,.75,.2,1) both;animation-delay:calc(var(--i,0)*90ms)}
 @keyframes up{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
@@ -442,7 +474,7 @@ b,strong{font-weight:600}
   slides.forEach(function(s,i){ var m=s.querySelector('.cnt'); if(m) m.textContent=String(i+1).padStart(2,'0')+' / '+String(total).padStart(2,'0'); });
   /* режим проверки вёрстки: ?qa=1 — результат в title, читает src/qa.py */
   if(location.search.indexOf('qa')>=0){
-    var PARENTS=['card','sticky','tile','browser','step','stat','ck','it','qcard','legend','anat','box','srow','node','page','stair','nest','sugg','oi','plist'];
+    var PARENTS=['card','sticky','tile','browser','step','stat','ck','it','qcard','legend','anat','box','srow','node','page','stair','nest','sugg','oi','plist','shotmk','qrbox','outl'];
     window.__qa=function(idx){
       show(idx-1,1);
       var el=slides[idx-1], dk=deck.getBoundingClientRect(), bad=[];
