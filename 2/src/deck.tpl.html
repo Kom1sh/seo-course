@@ -496,6 +496,18 @@ b,strong{font-weight:600}
             if(b.top<pb.top-1||b.bottom>pb.bottom+1||b.left<pb.left-1||b.right>pb.right+1) bad.push('вне карточки: '+nm+' в .'+(String(p.className).split(' ')[0])); } }
       }
       /* текст, вылезший из ячейки таблицы: у ячеек overflow видимый, поэтому обрезка его не ловит */
+      /* строки таблицы за её границами: при align-content:center лишнее уходит и вверх, scrollHeight это не видит */
+      var tbls=el.querySelectorAll('.tbl');
+      for(var z=0;z<tbls.length;z++){ var T=box(tbls[z]), ch=tbls[z].children, lo=1e9, hi=-1e9;
+        for(var y=0;y<ch.length;y++){ var R=box(ch[y]); if(R.height===0) continue; lo=Math.min(lo,R.top); hi=Math.max(hi,R.bottom); }
+        var over=Math.max(tbls[z].scrollHeight-tbls[z].clientHeight, T.top-lo, hi-T.bottom);
+        if(over>2) bad.push('таблица не помещается: строк больше, чем влезает, +'+Math.round(over)+'px'); }
+      /* тело слайда наезжает на заголовок */
+      var h1=el.querySelector(':scope > h1');
+      if(h1){ var HB=box(h1), inb=el.querySelectorAll('.body *');
+        for(var w=0;w<inb.length;w++){ var R2=box(inb[w]); if(R2.width===0||R2.height===0) continue;
+          if(R2.top<HB.bottom-2&&R2.bottom>HB.top+2&&R2.left<HB.right-2&&R2.right>HB.left+2){
+            bad.push('наезжает на заголовок: '+((typeof inb[w].className==='string'&&inb[w].className)||inb[w].tagName)); break; } } }
       var cells=el.querySelectorAll('.tbl > *');
       for(var q=0;q<cells.length;q++){ var cl=cells[q];
         if(cl.scrollWidth-cl.clientWidth>2) bad.push('вылезает из ячейки: «'+(cl.textContent||'').trim().slice(0,30)+'» +'+(cl.scrollWidth-cl.clientWidth)+'px'); }
